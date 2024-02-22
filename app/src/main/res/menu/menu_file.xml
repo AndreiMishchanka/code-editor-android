@@ -1,0 +1,26 @@
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <group android:id="@+id/group1">
+    <item
+        android:id="@+id/action_new_file"
+        android:title="New File"
+        android:orderInCategory="100"
+        app:showAsAction="never" />
+    </group>
+
+    <group android:id="@+id/group2">
+    <item
+        android:id="@+id/action_open_file"
+        android:title="Open File"
+        android:orderInCategory="200"
+        app:showAsAction="never" />
+    </group>
+
+    <group android:id="@+id/group3">
+    <item
+        android:id="@+id/action_close_file"
+        android:title="Close Current File"
+        android:orderInCategory="300"
+        app:showAsAction="never" />
+    </group>
+</menu>
