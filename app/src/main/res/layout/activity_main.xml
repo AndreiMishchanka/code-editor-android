@@ -1,28 +1,91 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/linearLayout"
+    android:id="@+id/mainLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/dark_gray"
     android:gravity="center">
 
-    <Button
-        android:id="@+id/file_button"
-        style="?android:attr/borderlessButtonStyle"
-        android:layout_width="65dp"
-        android:layout_height="40dp"
-        android:background="@drawable/button_selector"
-        android:fontFamily="sans-serif-condensed-medium"
-        android:text="@string/file"
-        android:textAllCaps="false"
-        android:textSize="13dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.034"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.021"
-        tools:visibility="visible" />
+    <LinearLayout
+        android:id="@+id/upperPanelLayout"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:background="@drawable/upper_panel_background"
+        android:gravity="center_vertical"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp">
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            app:srcCompat="@drawable/ic_action_name" />
+
+        <Button
+            android:id="@+id/file_button"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="65dp"
+            android:layout_height="50dp"
+            android:background="@drawable/button_selector"
+            android:fontFamily="@font/uncutsans_bold"
+            android:paddingHorizontal="0dp"
+            android:text="@string/file"
+            android:textAllCaps="false"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/git_button"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.0"
+            tools:visibility="visible" />
+
+        <Button
+            android:id="@+id/git_button"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="55dp"
+            android:layout_height="50dp"
+            android:background="@drawable/button_selector"
+            android:fontFamily="@font/uncutsans_bold"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:text="@string/git"
+            android:textAllCaps="false"
+            android:textSize="16sp"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="125dp"
+            tools:layout_editor_absoluteY="0dp"
+            tools:visibility="visible" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/CodeTextLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginStart="356dp"
+        android:layout_marginTop="53dp"
+        android:background="@drawable/code_text_panel_background"
+        android:gravity="left"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="0dp"
+        tools:layout_editor_absoluteY="0dp"
+        android:orientation="horizontal">
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:id="@+id/ExplorerLayout"
+        android:layout_width="300dp"
+        android:layout_height="match_parent"
+        android:background="@drawable/explorer_panel_background"
+        android:gravity="left"
+        android:orientation="horizontal"
+        android:layout_marginTop="53dp"
+        app:layout_constraintEnd_toStartOf="@+id/CodeTextLayout"
+        tools:ignore="MissingConstraints" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
