@@ -2,4 +2,8 @@
     <string name="app_name">CodeEditor</string>
     <string name="file">file</string>
     <string name="git">git</string>
+    <string name="open_hint">
+        To start editing open or create
+            new file or project
+    </string>
 </resources>

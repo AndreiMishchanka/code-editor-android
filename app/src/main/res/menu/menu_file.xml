@@ -3,24 +3,42 @@
     <group android:id="@+id/group1">
     <item
         android:id="@+id/action_new_file"
-        android:title="New File"
+        android:title="new file"
         android:orderInCategory="100"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_new_project"
+        android:title="new project"
+        android:orderInCategory="200"
         app:showAsAction="never" />
     </group>
 
     <group android:id="@+id/group2">
     <item
         android:id="@+id/action_open_file"
-        android:title="Open File"
-        android:orderInCategory="200"
+        android:title="open file"
+        android:orderInCategory="300"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_open_project"
+        android:title="open project"
+        android:orderInCategory="400"
         app:showAsAction="never" />
     </group>
 
     <group android:id="@+id/group3">
     <item
         android:id="@+id/action_close_file"
-        android:title="Close Current File"
-        android:orderInCategory="300"
+        android:title="close current file"
+        android:orderInCategory="500"
+        app:showAsAction="never" />
+
+    <item
+        android:id="@+id/action_close_project"
+        android:title="close current project"
+        android:orderInCategory="600"
         app:showAsAction="never" />
     </group>
 </menu>

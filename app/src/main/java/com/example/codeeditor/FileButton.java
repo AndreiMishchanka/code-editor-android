@@ -24,7 +24,7 @@ public class FileButton {
                 MenuCompat.setGroupDividerEnabled(popup.getMenu(), true);
                 popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     public boolean onMenuItemClick(MenuItem item) {
-                        return onOptionsItemSelected(item);
+                        return onOptionsItemSelected(item, mainScreen);
                     }
                 });
                 popup.show();
@@ -34,10 +34,10 @@ public class FileButton {
         return fileButton;
     }
 
-    static public boolean onOptionsItemSelected(MenuItem item) {
+    static public boolean onOptionsItemSelected(MenuItem item, MainActivity mainScreen) {
         switch (item.getItemId()) {
             case R.id.action_open_file:
-                openFile();
+                openFile(mainScreen);
                 return true;
             case R.id.action_new_file:
                 createNewFile();
@@ -50,7 +50,13 @@ public class FileButton {
         }
     }
 
-    static private void openFile() {
+    static private void openFile(MainActivity mainScreen) {
+        if (mainScreen.getEditorEnabled()) {
+            CodeEditorController.DisableCodeEditor(mainScreen);
+        }
+        else{
+            CodeEditorController.EnableCodeEditor(mainScreen);
+        }
     }
 
     static private void createNewFile() {
