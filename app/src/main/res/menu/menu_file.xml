@@ -3,13 +3,13 @@
     <group android:id="@+id/group1">
     <item
         android:id="@+id/action_new_file"
-        android:title="new file"
+        android:title="New file"
         android:orderInCategory="100"
         app:showAsAction="never" />
 
     <item
         android:id="@+id/action_new_project"
-        android:title="new project"
+        android:title="New project"
         android:orderInCategory="200"
         app:showAsAction="never" />
     </group>
@@ -17,28 +17,36 @@
     <group android:id="@+id/group2">
     <item
         android:id="@+id/action_open_file"
-        android:title="open file"
+        android:title="Open file"
         android:orderInCategory="300"
         app:showAsAction="never" />
 
     <item
         android:id="@+id/action_open_project"
-        android:title="open project"
+        android:title="Open project"
         android:orderInCategory="400"
         app:showAsAction="never" />
     </group>
 
     <group android:id="@+id/group3">
+        <item
+            android:id="@+id/action_save_file"
+            android:title="Save file"
+            android:orderInCategory="500"
+            app:showAsAction="never" />
+    </group>
+
+    <group android:id="@+id/group4">
     <item
         android:id="@+id/action_close_file"
-        android:title="close current file"
-        android:orderInCategory="500"
+        android:title="Close current file"
+        android:orderInCategory="600"
         app:showAsAction="never" />
 
     <item
         android:id="@+id/action_close_project"
-        android:title="close current project"
-        android:orderInCategory="600"
+        android:title="Close current project"
+        android:orderInCategory="700"
         app:showAsAction="never" />
     </group>
 </menu>

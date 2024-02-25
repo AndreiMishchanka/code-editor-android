@@ -55,7 +55,7 @@ public class OpenFileActivity extends AppCompatActivity {
 
     @Override 
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);        
+/*        super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_open_file);
 
         backButton = (Button) findViewById(R.id.backButton);
@@ -68,6 +68,6 @@ public class OpenFileActivity extends AppCompatActivity {
 
         filesLayout = findViewById(R.id.filesLayout);
         
-        generateAvailableFiles();
+        generateAvailableFiles();*/
     }
 }

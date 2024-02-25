@@ -3,13 +3,13 @@
     <group android:id="@+id/group1">
         <item
             android:id="@+id/action_initial_commit"
-            android:title="initial commit"
+            android:title="Initial commit"
             android:orderInCategory="100"
             app:showAsAction="never" />
 
         <item
             android:id="@+id/action_commit"
-            android:title="commit"
+            android:title="Commit"
             android:orderInCategory="200"
             app:showAsAction="never" />
     </group>
@@ -17,7 +17,7 @@
     <group android:id="@+id/group2">
         <item
             android:id="@+id/action_push"
-            android:title="push"
+            android:title="Push"
             android:orderInCategory="300"
             app:showAsAction="never" />
     </group>
@@ -25,7 +25,7 @@
     <group android:id="@+id/group3">
         <item
             android:id="@+id/action_fetch"
-            android:title="fetch"
+            android:title="Fetch"
             android:orderInCategory="400"
             app:showAsAction="never" />
     </group>

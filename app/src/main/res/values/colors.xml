@@ -9,4 +9,6 @@
     <color name="darker_dark_gray">#1A1C20</color>
     <color name="lighter_dark_gray">#1E1F23</color>
     <color name="line_number_color">#AEA992</color>
+    <color name="error_red">#E84E4E</color>
+    <color name="accept_green">#54B731</color>
 </resources>

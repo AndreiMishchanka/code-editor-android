@@ -1,12 +1,17 @@
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mainLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/dark_gray"
-    android:gravity="center">
+    android:background="@color/dark_gray">
 
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/subMainLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/dark_gray"
+        android:gravity="center">
     <LinearLayout
         android:id="@+id/upperPanelLayout"
         android:layout_width="match_parent"
@@ -95,6 +100,7 @@
             android:gravity="top|start">
         </com.amrdeveloper.codeview.CodeView>
 
+
     </FrameLayout>
 
 
@@ -110,4 +116,58 @@
         tools:ignore="MissingConstraints"/>
 
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    <FrameLayout
+        android:id="@+id/EnterFileLayout"
+        android:layout_width="500dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="200dp"
+        android:layout_marginStart="400dp"
+        android:background="@drawable/text_enter_background"
+        >
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/EnterOpenFileFieldBackground"
+            android:layout_width="400dp"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="40dp"
+            android:layout_height="60dp"
+            android:background="@drawable/text_enter_field_background"
+            android:gravity="center_horizontal|center_vertical">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/EnterOpenFileField"
+                android:layout_width="390dp"
+                android:layout_height="52dp"
+                android:background="@color/transparent"
+                android:textColor="@color/white"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/ErrorTextInput"
+            android:layout_width="250dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="120dp"
+            android:fontFamily="@font/uncutsans_regularitalic"
+            android:textColor="@color/error_red"
+            android:gravity="center"
+            android:text="" />
+
+        <Button
+            android:id="@+id/OpenFileButton"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="350dp"
+            android:layout_marginTop="120dp"
+            android:textColor="@color/accept_green"
+            android:text="Open"
+            android:background="@drawable/open_button_background">
+        </Button>
+
+    </FrameLayout>
+
+</FrameLayout>

@@ -4,6 +4,8 @@ import android.view.View;
 
 import com.amrdeveloper.codeview.CodeView;
 
+import java.util.Objects;
+
 public class CodeEditorController {
 
     public static CodeView getCodeEditor(MainActivity mainScreen){
@@ -33,6 +35,16 @@ public class CodeEditorController {
         codeEditor.setHighlightCurrentLineColor(mainScreen.getColor(R.color.dark_gray));
         codeEditor.setLineNumberTextColor(mainScreen.getColor(R.color.line_number_color));
         codeEditor.setLineNumberTextSize(30);
+    }
+
+    public static void setCode(String code, MainActivity mainScreen){
+        CodeView codeEditor = mainScreen.findViewById(R.id.codeView);
+        codeEditor.setText(code);
+    }
+
+    public static String getCode(MainActivity mainScreen){
+        CodeView codeEditor = mainScreen.findViewById(R.id.codeView);
+        return Objects.requireNonNull(codeEditor.getText()).toString();
     }
 
 }

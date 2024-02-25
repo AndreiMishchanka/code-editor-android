@@ -20,7 +20,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".NewFileActivity"
+            android:name=".FilesController"
             android:screenOrientation="landscape"
         >
         </activity>
