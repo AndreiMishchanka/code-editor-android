@@ -194,7 +194,7 @@
     <FrameLayout
         android:id="@+id/OpenFileLayout"
         android:layout_width="500dp"
-        android:layout_height="200dp"
+        android:layout_height="350dp"
         android:layout_marginTop="200dp"
         android:layout_marginStart="400dp"
         android:background="@drawable/text_enter_background"
@@ -238,12 +238,30 @@
                 />
         </com.google.android.material.textfield.TextInputLayout>
 
+        <ScrollView
+            android:id="@+id/OpenFileScroll"
+            android:layout_width="400dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="140dp"
+            android:layout_marginStart="50dp"
+            android:background="@drawable/text_enter_field_background"
+            >
+
+            <LinearLayout
+                android:id="@+id/OpenFileScrollLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:background="@color/transparent">
+            </LinearLayout>
+        </ScrollView>
+
         <TextView
             android:id="@+id/OpenFileError"
             android:layout_width="250dp"
             android:layout_height="50dp"
             android:layout_marginStart="50dp"
-            android:layout_marginTop="130dp"
+            android:layout_marginTop="250dp"
             android:fontFamily="@font/uncutsans_regularitalic"
             android:textColor="@color/error_red"
             android:gravity="center"
@@ -254,7 +272,7 @@
             android:layout_width="100dp"
             android:layout_height="50dp"
             android:layout_marginStart="350dp"
-            android:layout_marginTop="130dp"
+            android:layout_marginTop="250dp"
             android:textColor="@color/accept_green"
             android:text="Open"
             android:background="@drawable/open_button_background">

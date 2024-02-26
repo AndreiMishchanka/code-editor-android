@@ -12,6 +12,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.Map;
 
 public class FilesController {
 
@@ -80,5 +81,10 @@ public class FilesController {
     public static boolean isFileExist(String fileName, MainActivity mainScreen) {
         SharedPreferences sharedPreferences = mainScreen.getApplicationContext().getSharedPreferences("MyLocalFiles", MODE_PRIVATE);
         return sharedPreferences.contains(fileName);
+    }
+
+    public static Map<String, ?> getAllLocalFiles(MainActivity mainScreen) {
+        SharedPreferences sharedPreferences = mainScreen.getApplicationContext().getSharedPreferences("MyLocalFiles", MODE_PRIVATE);
+        return sharedPreferences.getAll();
     }
 }
