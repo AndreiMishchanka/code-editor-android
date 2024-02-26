@@ -34,9 +34,6 @@ public class OpenFileActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {                
                 Intent intent = new Intent(OpenFileActivity.this, FileEditorActivity.class);
-                intent.putExtra("fileName", fileName);
-                startActivity(intent);
-                Toast.makeText(OpenFileActivity.this, "TODO", Toast.LENGTH_SHORT).show();
             }
         });
         return button;

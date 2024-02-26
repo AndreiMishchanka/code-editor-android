@@ -36,6 +36,8 @@ public class MainActivity extends AppCompatActivity {
 
         NewFileController.setDisabled(this);
         NewFileController.newFileInitialization(this);
+        OpenFileController.setDisabled(this);
+        OpenFileController.openFileInitialization(this);
 
         currentFileName = null;
     }
@@ -93,6 +95,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void setCurrentFileName(String fileName) throws Exception{
+        if(fileName == null){
+            currentFileName = null;
+            enableOpenFileHint();
+            CodeEditorController.setCode("", this);
+            CodeEditorController.DisableCodeEditor(this);
+            return;
+        }
         currentFileName = fileName;
         disableOpenFileHint();
         CodeEditorController.setCode(FilesController.getFilesInside(fileName, this), this);

@@ -76,4 +76,9 @@ public class FilesController {
             Toast.makeText(mainScreen, "Error saving file", Toast.LENGTH_SHORT).show();
         }
     }
+
+    public static boolean isFileExist(String fileName, MainActivity mainScreen) {
+        SharedPreferences sharedPreferences = mainScreen.getApplicationContext().getSharedPreferences("MyLocalFiles", MODE_PRIVATE);
+        return sharedPreferences.contains(fileName);
+    }
 }

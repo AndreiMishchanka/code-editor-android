@@ -50,7 +50,7 @@ public class FileButton {
                 createNewFile(mainScreen);
                 return true;
             case R.id.action_close_file:
-                closeCurrentFile();
+                closeCurrentFile(mainScreen);
                 return true;
             case R.id.action_save_file:
                 saveFile(mainScreen);
@@ -61,6 +61,8 @@ public class FileButton {
     }
 
     static private void openFile(MainActivity mainScreen) {
+        mainScreen.disableMainLayout();
+        OpenFileController.setEnabled(mainScreen);
     }
 
     static private void createNewFile(MainActivity mainScreen) {
@@ -68,7 +70,13 @@ public class FileButton {
         NewFileController.setEnabled(mainScreen);
     }
 
-    static private void closeCurrentFile() {
+    static private void closeCurrentFile(MainActivity mainScreen) {
+        saveFile(mainScreen);
+        try {
+            mainScreen.setCurrentFileName(null);
+        } catch (Exception e) {
+            return;
+        }
     }
 
     static private void saveFile(MainActivity mainScreen){

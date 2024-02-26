@@ -188,7 +188,77 @@
             android:background="@drawable/open_button_background">
         </Button>
 
+    </FrameLayout>
 
+
+    <FrameLayout
+        android:id="@+id/OpenFileLayout"
+        android:layout_width="500dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="200dp"
+        android:layout_marginStart="400dp"
+        android:background="@drawable/text_enter_background"
+        >
+
+        <TextView
+            android:id="@+id/OpenFileTitle"
+            android:layout_width="match_parent"
+            android:layout_marginTop="15dp"
+            android:layout_height="30dp"
+            android:background="@color/transparent"
+            android:fontFamily="@font/uncutsans_bold"
+            android:textColor="@color/white"
+            android:gravity="center"
+            android:text="Open File" />
+
+        <ImageButton
+            android:id="@+id/OpenFileClose"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@color/transparent"
+            android:layout_marginLeft="455dp"
+            android:layout_marginTop="15dp"
+            app:srcCompat="@android:drawable/ic_menu_close_clear_cancel" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/OpenFileEnterBackground"
+            android:layout_width="400dp"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="55dp"
+            android:layout_height="60dp"
+            android:background="@drawable/text_enter_field_background"
+            android:gravity="center_horizontal|center_vertical">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/OpenFileEnterField"
+                android:layout_width="390dp"
+                android:layout_height="52dp"
+                android:background="@color/transparent"
+                android:textColor="@color/white"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/OpenFileError"
+            android:layout_width="250dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="130dp"
+            android:fontFamily="@font/uncutsans_regularitalic"
+            android:textColor="@color/error_red"
+            android:gravity="center"
+            android:text="" />
+
+        <Button
+            android:id="@+id/OpenFileButtonSubmit"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="350dp"
+            android:layout_marginTop="130dp"
+            android:textColor="@color/accept_green"
+            android:text="Open"
+            android:background="@drawable/open_button_background">
+        </Button>
 
     </FrameLayout>
 
