@@ -1,21 +1,14 @@
 package com.example.codeeditor;
 
-import android.content.ClipData;
 import android.content.Context;
 import android.os.Build;
-import android.view.ContentInfo;
 import android.view.ContextThemeWrapper;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.PopupMenu;
 
 import androidx.annotation.RequiresApi;
-import androidx.constraintlayout.widget.Group;
-import androidx.core.view.MenuCompat;
-
-import java.util.Objects;
 
 public class FileButton {
 
@@ -34,8 +27,8 @@ public class FileButton {
                     popup.getMenu().findItem(R.id.action_save_file).setEnabled(false);
                     //popup.getMenu().findItem(R.id.action_save_file).setVisible(false);
                     popup.getMenu().setGroupVisible(R.id.group3, false);
-                    popup.getMenu().setGroupDividerEnabled(true);
                 }
+                popup.getMenu().setGroupDividerEnabled(true);
                 popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     public boolean onMenuItemClick(MenuItem item) {
                         return onOptionsItemSelected(item, mainScreen);
@@ -72,7 +65,7 @@ public class FileButton {
 
     static private void createNewFile(MainActivity mainScreen) {
         mainScreen.disableMainLayout();
-        OpenFileEnterTextController.setEnabled(mainScreen);
+        NewFileController.setEnabled(mainScreen);
     }
 
     static private void closeCurrentFile() {
