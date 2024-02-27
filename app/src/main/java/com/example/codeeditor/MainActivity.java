@@ -33,11 +33,12 @@ public class MainActivity extends AppCompatActivity {
     private static final int READ_REQUEST_CODE = 42;
     private static final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 123;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        createRequiredFolders();
 
         newFileButton = findViewById(R.id.new_file_button);
         newFileButton.setOnClickListener(new View.OnClickListener() {
@@ -83,6 +84,22 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    private void createRequiredFolders() {
+        File localFilesFolder = new File(getFilesDir(), "Local Files");
+        File projectsFolder = new File(getFilesDir(), "Projects");
+
+        if (!localFilesFolder.exists()) {
+            if (!localFilesFolder.mkdir()) {
+                Log.e("MainActivity", "Failed to create Local Files folder");
+            }
+        }
+        if (!projectsFolder.exists()) {
+            if (!projectsFolder.mkdir()) {
+                Log.e("MainActivity", "Failed to create Projects folder");
+            }
+        }
+    }
+
     private void openFileExplorer() {
         Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
         intent.addCategory(Intent.CATEGORY_OPENABLE);
@@ -114,7 +131,12 @@ public class MainActivity extends AppCompatActivity {
         try {
             InputStream inputStream = getContentResolver().openInputStream(uri);
             String fileName = getFileNameFromUri(uri);
-            File internalFile = new File(getFilesDir(), fileName);
+
+            File localFilesFolder = new File(getFilesDir(), "Local Files");
+            if (!localFilesFolder.exists()) {
+                localFilesFolder.mkdir();
+            }
+            File internalFile = new File(localFilesFolder.getPath(), fileName);
             OutputStream outputStream = new FileOutputStream(internalFile);
             byte[] buffer = new byte[1024];
             int length;
