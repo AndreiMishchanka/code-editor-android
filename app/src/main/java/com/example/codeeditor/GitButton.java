@@ -45,6 +45,9 @@ public class GitButton {
             case R.id.action_push:
                 gitPush();
                 return true;
+            case R.id.action_clone:
+                gitClone();
+                return true;
             default:
                 return false;
         }
@@ -57,5 +60,9 @@ public class GitButton {
     }
 
     static private void gitPush() {
+    }
+
+    static private void gitClone() {
+
     }
 }

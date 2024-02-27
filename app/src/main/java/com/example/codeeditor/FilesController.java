@@ -17,8 +17,10 @@ import java.util.Map;
 public class FilesController {
 
     protected static void createFile(String fileName, MainActivity mainScreen) throws Exception {
-        SharedPreferences sharedPreferences = mainScreen.getApplicationContext().getSharedPreferences("MyLocalFiles", MODE_PRIVATE);
-        if (sharedPreferences.contains(fileName)) {
+        File directory = FilesController.getDirectory(fileName, mainScreen);
+        String realFileName = FilesController.getFileName(fileName);
+        File file = new File(directory, realFileName);
+        if (file.exists()) {
             throw new Exception("File " + fileName + " already exists");
         } else {
             String templateText = "";
@@ -26,7 +28,7 @@ public class FilesController {
                 templateText = "#include<iostream>\n\nint main(){\n\tstd::cout<<\"Hello World!\\n\";\n\treturn 0;\n}";
             }
             try {
-                FileOutputStream fileOutputStream = mainScreen.openFileOutput(fileName, MODE_PRIVATE);
+                FileOutputStream fileOutputStream = new FileOutputStream(file);
                 fileOutputStream.write(templateText.getBytes());
                 fileOutputStream.close();
                 Toast.makeText(mainScreen, "File created", Toast.LENGTH_SHORT).show();
@@ -38,22 +40,20 @@ public class FilesController {
                 e.printStackTrace();
                 Toast.makeText(mainScreen, "Error creating file", Toast.LENGTH_SHORT).show();
             }
-
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putString(fileName, "");
-            editor.apply();
             Toast.makeText(mainScreen, "File created", Toast.LENGTH_SHORT).show();
         }
     }
 
     public static String getFilesInside(String fileName, MainActivity mainScreen) throws Exception {
-        SharedPreferences sharedPreferences = mainScreen.getApplicationContext().getSharedPreferences("MyLocalFiles", MODE_PRIVATE);
-        if (!sharedPreferences.contains(fileName)) {
+        File directory = FilesController.getDirectory(fileName, mainScreen);
+        String realFileName = FilesController.getFileName(fileName);
+        File file = new File(directory, realFileName);
+        if (!file.exists()) {
             throw new Exception("File " + fileName + " do not exists");
         } else
         {
             StringBuilder stringBuilder = new StringBuilder();
-            FileInputStream fileInputStream = mainScreen.openFileInput(fileName);
+            FileInputStream fileInputStream = new FileInputStream(file);
             InputStreamReader isr = new InputStreamReader(fileInputStream);
             BufferedReader bufferedReader = new BufferedReader(isr);
             String line;
@@ -67,8 +67,11 @@ public class FilesController {
     }
 
     public static void saveFile(String fileName, String content, MainActivity mainScreen) {
+        File directory = FilesController.getDirectory(fileName, mainScreen);
+        String realFileName = FilesController.getFileName(fileName);
+        File file = new File(directory, realFileName);
         try {
-            FileOutputStream fileOutputStream = mainScreen.openFileOutput(fileName, MODE_PRIVATE);
+            FileOutputStream fileOutputStream = new FileOutputStream(file);
             fileOutputStream.write(content.getBytes());
             fileOutputStream.close();
             Toast.makeText(mainScreen, "File saved", Toast.LENGTH_SHORT).show();
@@ -79,12 +82,72 @@ public class FilesController {
     }
 
     public static boolean isFileExist(String fileName, MainActivity mainScreen) {
-        SharedPreferences sharedPreferences = mainScreen.getApplicationContext().getSharedPreferences("MyLocalFiles", MODE_PRIVATE);
-        return sharedPreferences.contains(fileName);
+        File directory = FilesController.getDirectory(fileName, mainScreen);
+        if (directory == null) {
+            return false;
+        }
+        String realFileName = FilesController.getFileName(fileName);
+        return new File(directory, realFileName).exists();
     }
 
     public static Map<String, ?> getAllLocalFiles(MainActivity mainScreen) {
         SharedPreferences sharedPreferences = mainScreen.getApplicationContext().getSharedPreferences("MyLocalFiles", MODE_PRIVATE);
         return sharedPreferences.getAll();
+    }
+
+    public static File[] getAllLocalFiles(MainActivity mainScreen, String path) {
+        File directory = FilesController.getDirectory(path, mainScreen);
+        String realFileName = FilesController.getFileName(path);
+        File file = new File(directory, realFileName);
+        return file.listFiles();
+    }
+
+    public static void createProjectsDirectory(MainActivity mainScreen){
+        File directory = mainScreen.getFilesDir();
+        File newDirectory = new File(directory, "Projects");
+        if (!newDirectory.exists()) {
+            newDirectory.mkdir();
+        }
+    }
+
+    public static File getFileByPath(String path, MainActivity mainScreen) {
+        File directory = FilesController.getDirectory(path, mainScreen);
+        String realFileName = FilesController.getFileName(path);
+        File file = new File(directory, realFileName);
+        if(file.exists()){
+            return file;
+        }
+        else{
+            return null;
+        }
+    }
+
+    public static boolean isDirectory(String directoryPath, MainActivity mainScreen){
+        File directory = FilesController.getDirectory(directoryPath, mainScreen);
+        String realFileName = FilesController.getFileName(directoryPath);
+        File file = new File(directory, realFileName);
+        if(!file.exists() || !file.isDirectory()){
+            return false;
+        }
+        return true;
+    }
+
+    private static File getDirectory(String fileName, MainActivity mainScreen) {
+        String fileNameCopy = String.copyValueOf(fileName.toCharArray());
+        File currentDirectory = mainScreen.getFilesDir();
+        while(fileNameCopy.contains("/")){
+            String subDirectoryName = fileNameCopy.substring(0, fileNameCopy.indexOf('/'));
+            File subDirectory = new File(currentDirectory, subDirectoryName);
+            if (!subDirectory.exists()) {
+                return null;
+            }
+            currentDirectory = subDirectory;
+            fileNameCopy = fileNameCopy.substring(fileNameCopy.indexOf('/') + 1);;
+        }
+        return currentDirectory;
+    }
+
+    private static String getFileName(String fileName){
+        return fileName.substring(fileName.lastIndexOf('/') + 1);
     }
 }
