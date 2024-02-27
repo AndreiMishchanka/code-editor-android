@@ -31,7 +31,7 @@ public class FileEditorActivity extends AppCompatActivity {
     String fileContent = "";
 
     @Override 
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {/*
         super.onCreate(savedInstanceState);        
         setContentView(R.layout.activity_file_editor);
 
@@ -56,20 +56,7 @@ public class FileEditorActivity extends AppCompatActivity {
         readFileContent(fileName);
 
         codeTextView = (EditText) findViewById(R.id.codeTextView);
-        codeTextView.setText(fileContent);
-    }
-
-    private void saveFile() {
-        String text = codeTextView.getText().toString();
-        try {
-            FileOutputStream fileOutputStream = openFileOutput(fileName, MODE_PRIVATE);
-            fileOutputStream.write(text.getBytes());
-            fileOutputStream.close();
-            Toast.makeText(FileEditorActivity.this, "File saved", Toast.LENGTH_SHORT).show();
-        } catch (IOException e) {
-            e.printStackTrace();
-            Toast.makeText(FileEditorActivity.this, "Error saving file", Toast.LENGTH_SHORT).show();
-        }
+        codeTextView.setText(fileContent);*/
     }
 
     private void readFileContent(String fileName) {
