@@ -84,6 +84,23 @@
             tools:layout_editor_absoluteY="0dp"
             tools:visibility="visible" />
 
+        <Button
+            android:id="@+id/file_explorer"
+            style="?android:attr/borderlessButtonStyle"
+            android:layout_width="75dp"
+            android:layout_height="50dp"
+            android:background="@drawable/button_selector"
+            android:fontFamily="@font/uncutsans_bold"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:text="@string/file_explorer"
+            android:textAllCaps="false"
+            android:textSize="12sp"
+            tools:ignore="MissingConstraints"
+            tools:layout_editor_absoluteX="125dp"
+            tools:layout_editor_absoluteY="0dp"
+            tools:visibility="visible" />
+
     </LinearLayout>
 
     <FrameLayout

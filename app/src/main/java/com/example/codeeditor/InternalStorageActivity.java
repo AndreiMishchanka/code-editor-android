@@ -1,29 +1,46 @@
 package com.example.codeeditor;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.database.Cursor;
+import android.graphics.Paint;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.text.InputType;
 import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.Objects;
 
 public class InternalStorageActivity extends AppCompatActivity {
     private String currentDisplayedPath = null;
     private String copyDestinationPath = null;
+
+    private static final int READ_REQUEST_CODE = 42;
+    private static final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 123;
+
 
     Button backButton;
     private LinearLayout layout;
@@ -56,6 +73,22 @@ public class InternalStorageActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 showCreateFileDialog();
+            }
+        });
+
+        Button deviceButton = findViewById(R.id.createDeviceButton);
+        deviceButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                openFileExplorer();
+            }
+        });
+
+        Button exitButton = findViewById(R.id.createExitButton);
+        exitButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
 
@@ -106,7 +139,6 @@ public class InternalStorageActivity extends AppCompatActivity {
         }
     }
 
-
     private void createFolder() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Enter folder name:");
@@ -144,11 +176,19 @@ public class InternalStorageActivity extends AppCompatActivity {
     }
 
     public void generateAvailableFiles(File directory) {
+        Toast.makeText(this, "Files from Current path: " + directory.getPath(), Toast.LENGTH_SHORT).show();
         layout.removeAllViews();
         File[] files = directory.listFiles();
         if (files != null) {
             for (File file : files) {
-                addButtonToLayout(createFileButton(file.getName(), file));
+                if(file.isDirectory()) {
+                    addViewToLayout(createFileButton(file.getName(), file));
+                }
+            }
+            for (File file : files) {
+                if(!file.isDirectory()) {
+                    addViewToLayout(createFileButton(file.getName(), file));
+                }
             }
         }
     }
@@ -219,29 +259,43 @@ public class InternalStorageActivity extends AppCompatActivity {
         }
     }
 
-
-
     private Button createFileButton(String fileName, File file) {
         Button button = new Button(this);
         button.setText(fileName);
+        button.setAllCaps(false);
+        button.setBackgroundResource(android.R.drawable.btn_default);
 
         if (file.isDirectory()) {
-            button.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    currentDisplayedPath = file.getPath();
-                    generateAvailableFiles(file);
-                }
-            });
-        } else {
-            button.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    openFileEditor(fileName);
-                }
-            });
+            Drawable folderIcon = getResources().getDrawable(R.drawable.ic_action_name);
+            folderIcon.setBounds(0, 0, folderIcon.getIntrinsicWidth(), folderIcon.getIntrinsicHeight());
+            button.setCompoundDrawablesRelative(folderIcon, null, null, null);
         }
 
+        int paddingHorizontal = 12;
+        int paddingVertical = 8;
+        button.setPadding(paddingHorizontal, paddingVertical, paddingHorizontal, paddingVertical);
+
+        // Measure the text width and add some extra space
+        Paint textPaint = button.getPaint();
+        int textWidth = (int) textPaint.measureText(fileName) * 2;
+        int extraWidth = 32; // Extra width in pixels
+        int buttonWidth = textWidth + extraWidth;
+
+        // Set the calculated width for the button
+        ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(buttonWidth, ViewGroup.LayoutParams.WRAP_CONTENT);
+        button.setLayoutParams(params);
+
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (file.isDirectory()) {
+                    currentDisplayedPath = file.getPath();
+                    generateAvailableFiles(file);
+                } else {
+                    openFileEditor(fileName);
+                }
+            }
+        });
 
         button.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
@@ -253,6 +307,9 @@ public class InternalStorageActivity extends AppCompatActivity {
 
         return button;
     }
+
+
+
 
     private void showFileOptions(final File file) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -273,24 +330,6 @@ public class InternalStorageActivity extends AppCompatActivity {
         builder.show();
     }
 
-    private void deleteFile(final File file) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(this);
-        builder.setTitle("Confirm Deletion");
-        builder.setMessage("Are you sure you want to delete this file?");
-        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                if (file.delete()) {
-                    Toast.makeText(InternalStorageActivity.this, "File deleted", Toast.LENGTH_SHORT).show();
-                    generateAvailableFiles(new File(currentDisplayedPath));
-                } else {
-                    Toast.makeText(InternalStorageActivity.this, "Failed to delete file", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-        builder.setNegativeButton("No", null);
-        builder.show();
-    }
 
 
     private void chooseDestinationDirectoryForCopyOperation(File sourse) {
@@ -341,8 +380,8 @@ public class InternalStorageActivity extends AppCompatActivity {
         Toast.makeText(InternalStorageActivity.this, "TODO", Toast.LENGTH_SHORT).show();
     }
 
-    private void addButtonToLayout(Button button) {
-        layout.addView(button);
+    private void addViewToLayout(View view) {
+        layout.addView(view);
     }
 
     private void createFile(String fileName) {
@@ -370,5 +409,96 @@ public class InternalStorageActivity extends AppCompatActivity {
             Toast.makeText(InternalStorageActivity.this, "File created", Toast.LENGTH_SHORT).show();
         }
     }
+    private void deleteFile(final File file) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Confirm Deletion");
+        builder.setMessage("Are you sure you want to delete this file?");
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if (file.delete()) {
+                    Toast.makeText(InternalStorageActivity.this, "File deleted", Toast.LENGTH_SHORT).show();
+                    generateAvailableFiles(new File(currentDisplayedPath));
+                } else {
+                    Toast.makeText(InternalStorageActivity.this, "Failed to delete file", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        builder.setNegativeButton("No", null);
+        builder.show();
+    }
+
+
+
+    private void openFileExplorer() {
+        Intent intent = new Intent(Intent.ACTION_OPEN_DOCUMENT);
+        intent.addCategory(Intent.CATEGORY_OPENABLE);
+        intent.setType("*/*");
+        startActivityForResult(intent, READ_REQUEST_CODE);
+
+        if (ContextCompat.checkSelfPermission(this,
+                android.Manifest.permission.READ_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this,
+                    new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                    MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE);
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == READ_REQUEST_CODE && resultCode == RESULT_OK) {
+            Uri uri = data.getData();
+            if (uri != null) {
+                copyFileToInternalStorage(uri);
+            }
+        }
+    }
+
+    private void copyFileToInternalStorage(Uri uri) {
+        try {
+            InputStream inputStream = getContentResolver().openInputStream(uri);
+            String fileName = getFileNameFromUri(uri);
+
+            File localFilesFolder = new File(getFilesDir(), "Local Files");
+            if (!localFilesFolder.exists()) {
+                localFilesFolder.mkdir();
+            }
+            File internalFile = new File(localFilesFolder.getPath(), fileName);
+            OutputStream outputStream = new FileOutputStream(internalFile);
+            byte[] buffer = new byte[1024];
+            int length;
+            while ((length = inputStream.read(buffer)) > 0) {
+                outputStream.write(buffer, 0, length);
+            }
+            inputStream.close();
+            outputStream.close();
+            Toast.makeText(this, "File copied to internal storage", Toast.LENGTH_SHORT).show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            Toast.makeText(this, "Error copying file", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+
+    private String getFileNameFromUri(Uri uri) {
+        Cursor cursor = null;
+        try {
+            String[] projection = {MediaStore.MediaColumns.DISPLAY_NAME};
+            cursor = getContentResolver().query(uri, projection, null, null, null);
+            if (cursor != null && cursor.moveToFirst()) {
+                int columnIndex = cursor.getColumnIndexOrThrow(MediaStore.MediaColumns.DISPLAY_NAME);
+                return cursor.getString(columnIndex);
+            }
+        } finally {
+            if (cursor != null) {
+                cursor.close();
+            }
+        }
+        return null;
+    }
+
 
 }
