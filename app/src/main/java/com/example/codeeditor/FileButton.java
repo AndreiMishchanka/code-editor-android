@@ -70,10 +70,18 @@ public class FileButton {
 
     static private void createNewFile(MainActivity mainScreen) {
         mainScreen.disableMainLayout();
+        try {
+            mainScreen.setCurrentProjectPath(mainScreen.getCurrentProjectPath());
+        } catch (Exception e) {
+            return;
+        }
         NewFileController.setEnabled(mainScreen);
     }
 
     static private void closeCurrentFile(MainActivity mainScreen) {
+        if(mainScreen.getCurrentFileName() == null) {
+            return;
+        }
         saveFile(mainScreen);
         try {
             mainScreen.setCurrentFileName(null);

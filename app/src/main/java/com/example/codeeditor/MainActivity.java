@@ -43,12 +43,13 @@ public class MainActivity extends AppCompatActivity {
         OpenFileController.openFileInitialization(this);
         OpenProjectController.setDisabled(this);
         OpenProjectController.openProjectInitialization(this);
+        GitCloneController.setDisabled(this);
+        GitCloneController.gitCloneInitialization(this);
 
         currentFileName = null;
         currentProjectPath = null;
         FilesController.createProjectsDirectory(this);
 
-        GitController.gitClone("https://github.com/zendesk-mikalaiNavitski/GitTestRepository.git", this);
     }
 
     protected void disableOpenFileHint() {

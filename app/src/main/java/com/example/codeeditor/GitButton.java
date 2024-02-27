@@ -24,7 +24,7 @@ public class GitButton {
                 MenuCompat.setGroupDividerEnabled(popup.getMenu(), true);
                 popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
                     public boolean onMenuItemClick(MenuItem item) {
-                        return onOptionsItemSelected(item);
+                        return onOptionsItemSelected(item, mainScreen);
                     }
                 });
                 popup.show();
@@ -34,7 +34,7 @@ public class GitButton {
         return gitButton;
     }
 
-    static public boolean onOptionsItemSelected(MenuItem item) {
+    static public boolean onOptionsItemSelected(MenuItem item, MainActivity mainScreen) {
         switch (item.getItemId()) {
             case R.id.action_commit:
                 gitCommit();
@@ -46,7 +46,7 @@ public class GitButton {
                 gitPush();
                 return true;
             case R.id.action_clone:
-                gitClone();
+                gitClone(mainScreen);
                 return true;
             default:
                 return false;
@@ -62,7 +62,8 @@ public class GitButton {
     static private void gitPush() {
     }
 
-    static private void gitClone() {
-
+    static private void gitClone(MainActivity mainScreen) {
+        mainScreen.disableMainLayout();
+        GitCloneController.setEnabled(mainScreen);
     }
 }
