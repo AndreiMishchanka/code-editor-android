@@ -39,6 +39,9 @@ public class MainActivity extends AppCompatActivity {
      private Button fileExplorerButton;
     // private Button openInternalStorageButton;
 
+    //  private static final int READ_REQUEST_CODE = 42;
+    //  private static final int MY_PERMISSIONS_REQUEST_READ_EXTERNAL_STORAGE = 123;
+
     private Button fileButton;
     private Button gitButton;
     private CodeView codeView;
