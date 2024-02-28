@@ -129,7 +129,6 @@ public class InternalStorageActivity extends AppCompatActivity {
 
     private void backButtonPressed() {
         if (currentDisplayedPath.equals(getFilesDir().getPath())) {
-            Toast.makeText(this, "Back to menu", Toast.LENGTH_SHORT).show();
             finish();
         } else {
             File currentFile = new File(currentDisplayedPath);
@@ -176,7 +175,6 @@ public class InternalStorageActivity extends AppCompatActivity {
     }
 
     public void generateAvailableFiles(File directory) {
-        Toast.makeText(this, "Files from Current path: " + directory.getPath(), Toast.LENGTH_SHORT).show();
         layout.removeAllViews();
         File[] files = directory.listFiles();
         if (files != null) {
@@ -235,7 +233,6 @@ public class InternalStorageActivity extends AppCompatActivity {
             }
         } else {
             try {
-                Toast.makeText(this, "File sourceFolder: " + sourceFolder.getName() + "is starting to copy to " + destinationFolder.getPath(), Toast.LENGTH_SHORT).show();
                 if (destinationFolder.isDirectory()) {
                     destinationFolder = new File(destinationFolder, sourceFolder.getName());
                 }
@@ -251,7 +248,6 @@ public class InternalStorageActivity extends AppCompatActivity {
 
                 in.close();
                 out.close();
-                Toast.makeText(this, "File sourceFolder: " + sourceFolder.getName() + " copied to " + destinationFolder.getPath(), Toast.LENGTH_SHORT).show();
             } catch (IOException e) {
                 e.printStackTrace();
             }
@@ -265,9 +261,9 @@ public class InternalStorageActivity extends AppCompatActivity {
         button.setBackgroundResource(android.R.drawable.btn_default);
 
         if (file.isDirectory()) {
-            Drawable folderIcon = getResources().getDrawable(R.drawable.ic_action_name);
-            folderIcon.setBounds(0, 0, folderIcon.getIntrinsicWidth(), folderIcon.getIntrinsicHeight());
-            button.setCompoundDrawablesRelative(folderIcon, null, null, null);
+            Drawable contactCardIcon = getResources().getDrawable(android.R.drawable.sym_contact_card);
+            contactCardIcon.setBounds(0, 0, contactCardIcon.getIntrinsicWidth(), contactCardIcon.getIntrinsicHeight());
+            button.setCompoundDrawablesRelative(contactCardIcon, null, null, null);
         }
 
         int paddingHorizontal = 12;
@@ -304,9 +300,6 @@ public class InternalStorageActivity extends AppCompatActivity {
 
         return button;
     }
-
-
-
 
     private void showFileOptions(final File file) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
