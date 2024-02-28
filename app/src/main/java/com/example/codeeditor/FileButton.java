@@ -58,6 +58,9 @@ public class FileButton {
             case R.id.action_open_project:
                 openProject(mainScreen);
                 return true;
+            case R.id.action_close_project:
+                closeProject(mainScreen);
+                return true;
             default:
                 return false;
         }
@@ -101,5 +104,13 @@ public class FileButton {
     static private void openProject(MainActivity mainScreen) {
         mainScreen.disableMainLayout();
         OpenProjectController.setEnabled(mainScreen);
+    }
+
+    static private void closeProject(MainActivity mainScreen){
+        try {
+            mainScreen.setCurrentProjectPath(null);
+        } catch (Exception e) {
+            return;
+        }
     }
 }
