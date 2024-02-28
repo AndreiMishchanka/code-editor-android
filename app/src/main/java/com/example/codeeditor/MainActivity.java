@@ -5,6 +5,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
@@ -22,6 +23,7 @@ import android.content.pm.PackageManager;
 import android.widget.Toast;
 import com.amrdeveloper.codeview.CodeView;
 
+import java.io.File;
 import java.util.HashMap;
 
 import java.io.*;
@@ -49,6 +51,7 @@ public class MainActivity extends AppCompatActivity {
     private HashMap<Object, Boolean> canBeEnabled;
     private View openFileTextInput;
     private String currentFileName;
+    private String currentProjectPath;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,6 +71,10 @@ public class MainActivity extends AppCompatActivity {
         NewFileController.newFileInitialization(this);
         OpenFileController.setDisabled(this);
         OpenFileController.openFileInitialization(this);
+        OpenProjectController.setDisabled(this);
+        OpenProjectController.openProjectInitialization(this);
+        GitCloneController.setDisabled(this);
+        GitCloneController.gitCloneInitialization(this);
 
         fileExplorerButton = findViewById(R.id.file_explorer);
         fileExplorerButton.setOnClickListener(new View.OnClickListener() {
@@ -79,6 +86,9 @@ public class MainActivity extends AppCompatActivity {
         });
 
         currentFileName = null;
+        currentProjectPath = null;
+        FilesController.createProjectsDirectory(this);
+
     }
 
     protected void disableOpenFileHint() {
@@ -178,8 +188,16 @@ public class MainActivity extends AppCompatActivity {
         CodeEditorController.EnableCodeEditor(this);
     }
 
+    public void setCurrentProjectPath(String projectPath) throws Exception{
+        currentProjectPath = projectPath;
+        DirectoryTreeController.setEnabled(this);
+    }
+
     public String getCurrentFileName(){
         return currentFileName;
     }
-
+    
+    public String getCurrentProjectPath(){
+        return currentProjectPath;
+    }
 }

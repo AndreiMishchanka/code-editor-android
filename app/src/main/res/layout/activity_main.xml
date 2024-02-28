@@ -146,11 +146,30 @@
         android:layout_width="300dp"
         android:layout_height="match_parent"
         android:background="@drawable/explorer_panel_background"
-        android:gravity="left"
+        android:gravity="center"
         android:orientation="horizontal"
         android:layout_marginTop="53dp"
         app:layout_constraintEnd_toStartOf="@+id/CodeTextLayout"
-        tools:ignore="MissingConstraints"/>
+        tools:ignore="MissingConstraints">
+
+        <ScrollView
+            android:id="@+id/ExplorerScroll"
+            android:layout_width="250dp"
+            android:layout_height="match_parent"
+            android:background="@drawable/transperent"
+            >
+
+            <LinearLayout
+                android:id="@+id/ExplorerScrollLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:gravity="left|top"
+                android:background="@color/transparent">
+            </LinearLayout>
+        </ScrollView>
+
+    </LinearLayout>
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -316,5 +335,166 @@
         </Button>
 
     </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/OpenProjectLayout"
+        android:layout_width="500dp"
+        android:layout_height="350dp"
+        android:layout_marginTop="200dp"
+        android:layout_marginStart="400dp"
+        android:background="@drawable/text_enter_background"
+        >
+
+        <TextView
+            android:id="@+id/OpenProjectTitle"
+            android:layout_width="match_parent"
+            android:layout_marginTop="15dp"
+            android:layout_height="30dp"
+            android:background="@color/transparent"
+            android:fontFamily="@font/uncutsans_bold"
+            android:textColor="@color/white"
+            android:gravity="center"
+            android:text="Open Project" />
+
+        <ImageButton
+            android:id="@+id/OpenProjectClose"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@color/transparent"
+            android:layout_marginLeft="455dp"
+            android:layout_marginTop="15dp"
+            app:srcCompat="@android:drawable/ic_menu_close_clear_cancel" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/OpenProjectEnterBackground"
+            android:layout_width="400dp"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="55dp"
+            android:layout_height="60dp"
+            android:background="@drawable/text_enter_field_background"
+            android:gravity="center_horizontal|center_vertical">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/OpenProjectEnterField"
+                android:layout_width="390dp"
+                android:layout_height="52dp"
+                android:background="@color/transparent"
+                android:textColor="@color/white"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <ScrollView
+            android:id="@+id/OpenProjectScroll"
+            android:layout_width="400dp"
+            android:layout_height="100dp"
+            android:layout_marginTop="140dp"
+            android:layout_marginStart="50dp"
+            android:background="@drawable/text_enter_field_background"
+            >
+
+            <LinearLayout
+                android:id="@+id/OpenProjectScrollLayout"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:background="@color/transparent">
+            </LinearLayout>
+        </ScrollView>
+
+        <TextView
+            android:id="@+id/OpenProjectError"
+            android:layout_width="250dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="250dp"
+            android:fontFamily="@font/uncutsans_regularitalic"
+            android:textColor="@color/error_red"
+            android:gravity="center"
+            android:text="" />
+
+        <Button
+            android:id="@+id/OpenProjectButtonSubmit"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="350dp"
+            android:layout_marginTop="250dp"
+            android:textColor="@color/accept_green"
+            android:text="Open"
+            android:background="@drawable/open_button_background">
+        </Button>
+
+    </FrameLayout>
+
+    <FrameLayout
+        android:id="@+id/GitCloneLayout"
+        android:layout_width="500dp"
+        android:layout_height="200dp"
+        android:layout_marginTop="200dp"
+        android:layout_marginStart="400dp"
+        android:background="@drawable/text_enter_background"
+        >
+
+        <TextView
+            android:id="@+id/GitCloneTitle"
+            android:layout_width="match_parent"
+            android:layout_marginTop="15dp"
+            android:layout_height="30dp"
+            android:background="@color/transparent"
+            android:fontFamily="@font/uncutsans_bold"
+            android:textColor="@color/white"
+            android:gravity="center"
+            android:text="Clone Git Repository" />
+
+        <ImageButton
+            android:id="@+id/GitCloneClose"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@color/transparent"
+            android:layout_marginLeft="455dp"
+            android:layout_marginTop="15dp"
+            app:srcCompat="@android:drawable/ic_menu_close_clear_cancel" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/GitCloneEnterBackground"
+            android:layout_width="400dp"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="55dp"
+            android:layout_height="60dp"
+            android:background="@drawable/text_enter_field_background"
+            android:gravity="center_horizontal|center_vertical">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/GitCloneEnterField"
+                android:layout_width="390dp"
+                android:layout_height="52dp"
+                android:background="@color/transparent"
+                android:textColor="@color/white"
+                />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/GitCloneError"
+            android:layout_width="250dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="50dp"
+            android:layout_marginTop="130dp"
+            android:fontFamily="@font/uncutsans_regularitalic"
+            android:textColor="@color/error_red"
+            android:gravity="center"
+            android:text="" />
+
+        <Button
+            android:id="@+id/GitCloneButtonSubmit"
+            android:layout_width="100dp"
+            android:layout_height="50dp"
+            android:layout_marginStart="350dp"
+            android:layout_marginTop="130dp"
+            android:textColor="@color/accept_green"
+            android:text="Clone"
+            android:background="@drawable/open_button_background">
+        </Button>
+
+    </FrameLayout>
+
 
 </FrameLayout>

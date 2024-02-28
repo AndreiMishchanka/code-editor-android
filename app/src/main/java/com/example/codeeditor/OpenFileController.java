@@ -26,7 +26,7 @@ public class OpenFileController {
                 try {
                     mainScreen.setCurrentFileName(fileName);
                 } catch (Exception e) {
-                    OpenFileController.setError("Error opening file", mainScreen);
+                    OpenFileController.setError(e.getMessage(), mainScreen);
                     return;
                 }
                 OpenFileController.setDisabled(mainScreen);

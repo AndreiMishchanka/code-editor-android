@@ -55,6 +55,9 @@ public class FileButton {
             case R.id.action_save_file:
                 saveFile(mainScreen);
                 return true;
+            case R.id.action_open_project:
+                openProject(mainScreen);
+                return true;
             default:
                 return false;
         }
@@ -67,10 +70,18 @@ public class FileButton {
 
     static private void createNewFile(MainActivity mainScreen) {
         mainScreen.disableMainLayout();
+        try {
+            mainScreen.setCurrentProjectPath(mainScreen.getCurrentProjectPath());
+        } catch (Exception e) {
+            return;
+        }
         NewFileController.setEnabled(mainScreen);
     }
 
     static private void closeCurrentFile(MainActivity mainScreen) {
+        if(mainScreen.getCurrentFileName() == null) {
+            return;
+        }
         saveFile(mainScreen);
         try {
             mainScreen.setCurrentFileName(null);
@@ -83,5 +94,10 @@ public class FileButton {
         String fileName = mainScreen.getCurrentFileName();
         String content = CodeEditorController.getCode(mainScreen);
         FilesController.saveFile(fileName, content, mainScreen);
+    }
+
+    static private void openProject(MainActivity mainScreen) {
+        mainScreen.disableMainLayout();
+        OpenProjectController.setEnabled(mainScreen);
     }
 }
