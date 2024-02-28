@@ -129,7 +129,6 @@ public class InternalStorageActivity extends AppCompatActivity {
 
     private void backButtonPressed() {
         if (currentDisplayedPath.equals(getFilesDir().getPath())) {
-            Toast.makeText(this, "Back to menu", Toast.LENGTH_SHORT).show();
             finish();
         } else {
             File currentFile = new File(currentDisplayedPath);
@@ -176,7 +175,6 @@ public class InternalStorageActivity extends AppCompatActivity {
     }
 
     public void generateAvailableFiles(File directory) {
-        Toast.makeText(this, "Files from Current path: " + directory.getPath(), Toast.LENGTH_SHORT).show();
         layout.removeAllViews();
         File[] files = directory.listFiles();
         if (files != null) {
@@ -235,7 +233,6 @@ public class InternalStorageActivity extends AppCompatActivity {
             }
         } else {
             try {
-                Toast.makeText(this, "File sourceFolder: " + sourceFolder.getName() + "is starting to copy to " + destinationFolder.getPath(), Toast.LENGTH_SHORT).show();
                 if (destinationFolder.isDirectory()) {
                     destinationFolder = new File(destinationFolder, sourceFolder.getName());
                 }
@@ -251,7 +248,6 @@ public class InternalStorageActivity extends AppCompatActivity {
 
                 in.close();
                 out.close();
-                Toast.makeText(this, "File sourceFolder: " + sourceFolder.getName() + " copied to " + destinationFolder.getPath(), Toast.LENGTH_SHORT).show();
             } catch (IOException e) {
                 e.printStackTrace();
             }
