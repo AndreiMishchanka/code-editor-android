@@ -237,7 +237,6 @@ public class InternalStorageActivity extends AppCompatActivity {
             try {
                 Toast.makeText(this, "File sourceFolder: " + sourceFolder.getName() + "is starting to copy to " + destinationFolder.getPath(), Toast.LENGTH_SHORT).show();
                 if (destinationFolder.isDirectory()) {
-                    // If the destination is a directory, create a new file inside it
                     destinationFolder = new File(destinationFolder, sourceFolder.getName());
                 }
                 FileInputStream in = new FileInputStream(sourceFolder);
@@ -275,13 +274,11 @@ public class InternalStorageActivity extends AppCompatActivity {
         int paddingVertical = 8;
         button.setPadding(paddingHorizontal, paddingVertical, paddingHorizontal, paddingVertical);
 
-        // Measure the text width and add some extra space
         Paint textPaint = button.getPaint();
         int textWidth = (int) textPaint.measureText(fileName) * 2;
-        int extraWidth = 32; // Extra width in pixels
+        int extraWidth = 32;
         int buttonWidth = textWidth + extraWidth;
 
-        // Set the calculated width for the button
         ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(buttonWidth, ViewGroup.LayoutParams.WRAP_CONTENT);
         button.setLayoutParams(params);
 
@@ -292,7 +289,7 @@ public class InternalStorageActivity extends AppCompatActivity {
                     currentDisplayedPath = file.getPath();
                     generateAvailableFiles(file);
                 } else {
-                    openFileEditor(fileName);
+//                    openFileEditor(fileName);
                 }
             }
         });
@@ -373,12 +370,12 @@ public class InternalStorageActivity extends AppCompatActivity {
         });
     }
 
-    private void openFileEditor(String fileName) {
-        Intent intent = new Intent(InternalStorageActivity.this, FileEditorActivity.class);
-        intent.putExtra("fileName", fileName);
-        startActivity(intent);
-        Toast.makeText(InternalStorageActivity.this, "TODO", Toast.LENGTH_SHORT).show();
-    }
+//    private void openFileEditor(String fileName) {
+//        Intent intent = new Intent(InternalStorageActivity.this, FileEditorActivity.class);
+//        intent.putExtra("fileName", fileName);
+//        startActivity(intent);
+//        Toast.makeText(InternalStorageActivity.this, "TODO", Toast.LENGTH_SHORT).show();
+//    }
 
     private void addViewToLayout(View view) {
         layout.addView(view);
