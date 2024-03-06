@@ -1,4 +1,4 @@
-# vsCodeOnMinimal
+# Code Editor for Android
 
 In our project, "CodeEditor for Android," our primary objective was to explore the capabilities of Android's file system and ensure seamless file handling within our application. Specifically, we aimed to develop an app capable of reading and writing files and directories without encountering any issues.
 
